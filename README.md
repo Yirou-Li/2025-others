@@ -17,10 +17,10 @@
 
 #Usage
 
-Usage
+#Usage
 
-Clone the Repository:
-git clone https://github.com/your-username/codon-optimization.git
+#Clone the Repository:
+git clone https://github.com/Yirou-Li/2025-others.git
 cd codon-optimization
 Run the Script: Modify the cds_fasta and foreign_gene variables in the script to point to your input files. Then run:
 python codon_optimization.py
@@ -76,27 +76,19 @@ Codon   Original CAI   Optimized CAI
 ...
 codon_usage_*.png: Bar charts for each amino acid.
 cai_plot.png: Line plot comparing CAI values.
+
+
+---
+
 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 Author
 
-Your Name
+YirouLi
 
 Acknowledgments
 
 Biopython: https://biopython.org/
 Matplotlib: https://matplotlib.org/
-
-
----
-
-### How to Use the README
-
-1. Replace `your-username` with your GitHub username.
-2. Update the `Author` section with your name and GitHub profile link.
-3. Add any additional acknowledgments or references if needed.
-4. Save the file as `README.md` in the root of your repository.
-
-This README provides a clear and concise overview of your project, making it easy for others to understand and use your code. Let me know if you need further adjustments! 😊
