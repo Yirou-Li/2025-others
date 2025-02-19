@@ -132,5 +132,3 @@ python add_kegg_id.py
 本项目采用 [MIT 许可证](LICENSE)。
 
 ---
-
-如果你有其他需求或需要进一步优化 `README.md`，请随时告诉我！😊
