@@ -16,6 +16,9 @@
 4. **并行处理**：
    - 使用 `ThreadPoolExecutor` 并行处理查询，提高检索速度。
 
+5. **命令行支持**：
+   - 脚本支持通过命令行参数传入 `.tsv` 文件路径，自动生成输出文件和临时文件。
+
 ---
 
 ## 使用说明
@@ -30,10 +33,10 @@ pip install requests pandas beautifulsoup4
 
 ### 2. 运行脚本
 
-将脚本保存为 `add_kegg_id.py`，然后在终端中运行以下命令：
+将脚本保存为 `query_kegg_c.py`，然后在终端中运行以下命令：
 
 ```bash
-python add_kegg_id.py
+python3 query_kegg_c.py /path/to/your_file.tsv
 ```
 
 ### 3. 输入文件格式
@@ -58,31 +61,63 @@ python add_kegg_id.py
 
 ---
 
+## 批量处理脚本
+
+如果你需要批量处理多个 `.tsv` 文件，可以使用以下 Shell 脚本：
+
+### **Shell 脚本：`query_all_kegg.sh`**
+
+```bash
+#!/bin/bash
+
+# 设置输入路径
+input_base="/home/lyr/Microbial_fermentation/CGMCC/Geobacillus_fasta/prokka_output"
+script_path="/home/lyr/Microbial_fermentation/CGMCC/Geobacillus_fasta/prokka_output/KEGG/query_kegg_c.py"
+
+# 遍历每个子文件夹
+for dir in "$input_base"/*; do
+  if [ -d "$dir" ]; then
+    # 在子文件夹中查找 .tsv 文件
+    for tsv_file in "$dir"/*.tsv; do
+      if [ -f "$tsv_file" ]; then
+        # 输出当前处理的文件
+        echo "Processing: $tsv_file"
+        # 调用 Python 脚本进行 KEGG 查询
+        python3 "$script_path" "$tsv_file"
+      fi
+    done
+  fi
+done
+
+echo "All KEGG queries have been processed."
+```
+
+### **运行步骤**
+1. 将 Shell 脚本保存为 `query_all_kegg.sh`。
+2. 为脚本添加执行权限：
+
+```bash
+chmod +x query_all_kegg.sh
+```
+
+3. 运行脚本：
+
+```bash
+./query_all_kegg.sh
+```
+
+---
+
 ## 脚本参数
 
 脚本中的以下参数可以根据需要调整：
 
-1. **输入文件路径**：
-   ```python
-   input_file = "/path/to/input.tsv"
-   ```
-
-2. **输出文件路径**：
-   ```python
-   output_file = "/path/to/output.tsv"
-   ```
-
-3. **临时文件路径**：
-   ```python
-   temp_file = "/path/to/temp.tsv"
-   ```
-
-4. **并行线程数**：
+1. **并行线程数**：
    ```python
    max_workers = 5  # 设置并行线程数
    ```
 
-5. **重试次数和延迟**：
+2. **重试次数和延迟**：
    ```python
    retries = 3  # 最大重试次数
    delay = 60   # 重试延迟时间（秒）
@@ -130,5 +165,3 @@ python add_kegg_id.py
 ## 许可证
 
 本项目采用 [MIT 许可证](LICENSE)。
-
----
